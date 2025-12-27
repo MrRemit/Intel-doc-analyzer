@@ -20,8 +20,15 @@ import os
 sys.path.insert(0, str(Path(__file__).parent))
 
 from ingestion.document_processor import DocumentProcessor, DocumentChunk, DocumentMetadata
-from extraction.entity_extractor import EntityExtractor, Entity, Relationship
+from extraction.spacy_extractor import SpacyEntityExtractor  # FREE local extractor
 from graph.graph_builder import GraphBuilder
+
+# Optional Claude extractor (only if user wants premium)
+try:
+    from extraction.entity_extractor import EntityExtractor as ClaudeEntityExtractor
+    CLAUDE_AVAILABLE = True
+except ImportError:
+    CLAUDE_AVAILABLE = False
 
 console = Console()
 
@@ -54,12 +61,13 @@ def cli():
 @cli.command()
 @click.argument('input_path', type=click.Path(exists=True))
 @click.option('--output', '-o', type=str, help='Output name for graph (default: auto-generated)')
-@click.option('--api-key', type=str, envvar='ANTHROPIC_API_KEY', help='Anthropic API key (or set ANTHROPIC_API_KEY env var)')
-@click.option('--model', type=str, default='claude-opus-4-5-20251101', help='Claude model to use')
+@click.option('--engine', type=click.Choice(['spacy', 'claude']), default='spacy', help='Extraction engine: spacy (FREE) or claude (premium, requires API key)')
+@click.option('--api-key', type=str, envvar='ANTHROPIC_API_KEY', help='Anthropic API key (only needed if --engine=claude)')
+@click.option('--model', type=str, default='claude-opus-4-5-20251101', help='Claude model to use (only if --engine=claude)')
 @click.option('--confidence', type=float, default=0.7, help='Minimum confidence threshold (0-1)')
 @click.option('--chunk-size', type=int, default=4000, help='Max characters per chunk')
-@click.option('--format', type=click.Choice(['graphml', 'gexf', 'json']), default='graphml', help='Output format')
-def analyze(input_path, output, api_key, model, confidence, chunk_size, format):
+@click.option('--format', type=click.Choice(['graphml', 'gexf', 'json']), default='json', help='Output format (json recommended)')
+def analyze(input_path, output, engine, api_key, model, confidence, chunk_size, format):
     """
     Analyze documents and build knowledge graph
 
@@ -68,11 +76,27 @@ def analyze(input_path, output, api_key, model, confidence, chunk_size, format):
     """
     console.print("\n[bold cyan]🔍 Intelligence Document Analyzer[/bold cyan]\n")
 
-    # Validate API key
-    if not api_key:
-        console.print("[red]❌ Error: ANTHROPIC_API_KEY not set![/red]")
-        console.print("Set it with: export ANTHROPIC_API_KEY=your_key")
-        sys.exit(1)
+    # Display extraction mode
+    if engine == 'spacy':
+        console.print("[bold green]🆓 Using FREE local extraction (spaCy)[/bold green]")
+        console.print("[dim]No API costs, runs locally, 100% open-source[/dim]\n")
+    else:
+        console.print("[bold yellow]💰 Using premium extraction (Claude AI)[/bold yellow]")
+        console.print("[dim]Requires API key and costs money per request[/dim]\n")
+
+        # Validate API key for Claude
+        if not api_key:
+            console.print("[red]❌ Error: ANTHROPIC_API_KEY required for --engine=claude![/red]")
+            console.print("Set it with: export ANTHROPIC_API_KEY=your_key")
+            console.print("\n[cyan]TIP: Use --engine=spacy for FREE local extraction![/cyan]")
+            sys.exit(1)
+
+        # Check if Claude extractor is available
+        if not CLAUDE_AVAILABLE:
+            console.print("[red]❌ Error: Claude extractor not available![/red]")
+            console.print("Install with: pip install anthropic")
+            console.print("\n[cyan]TIP: Use --engine=spacy for FREE local extraction (no installation needed)![/cyan]")
+            sys.exit(1)
 
     # Determine input files
     input_path = Path(input_path)
@@ -91,7 +115,13 @@ def analyze(input_path, output, api_key, model, confidence, chunk_size, format):
 
     # Initialize modules
     processor = DocumentProcessor(max_chunk_size=chunk_size)
-    extractor = EntityExtractor(api_key=api_key, model=model, confidence_threshold=confidence)
+
+    # Initialize appropriate extractor
+    if engine == 'spacy':
+        extractor = SpacyEntityExtractor(confidence_threshold=confidence)
+    else:  # claude
+        extractor = ClaudeEntityExtractor(api_key=api_key, model=model, confidence_threshold=confidence)
+
     graph_builder = GraphBuilder(graph_name=output or "analysis")
 
     total_entities = 0

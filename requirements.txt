@@ -6,11 +6,15 @@
 python>=3.9
 
 # ============================================
-# AI / NLP - Claude API Integration
+# AI / NLP - FREE Local Entity Extraction (DEFAULT)
 # ============================================
-anthropic>=0.18.0        # Claude API SDK
-langchain>=0.1.0         # Optional: LLM orchestration
-langchain-anthropic>=0.1.0
+spacy>=3.7.0             # FREE local NLP (DEFAULT extraction engine)
+# Download model after install: python -m spacy download en_core_web_sm
+
+# Optional: Premium Claude AI extraction (requires API key + costs money)
+# anthropic>=0.18.0      # Claude API SDK (OPTIONAL, only if using --engine=claude)
+# langchain>=0.1.0       # LLM orchestration (OPTIONAL)
+# langchain-anthropic>=0.1.0  # (OPTIONAL)
 
 # ============================================
 # Document Processing - PDF, DOCX, Email
