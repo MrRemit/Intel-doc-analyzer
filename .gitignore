@@ -1,0 +1,170 @@
+# Intelligence Document Analyzer - Git Ignore
+
+# ============================================
+# CRITICAL: Sensitive Data - NEVER COMMIT
+# ============================================
+# Original documents (may contain PII, classified info)
+/data/raw/**
+/data/processed/**
+*.pdf
+*.docx
+*.doc
+*.eml
+*.mbox
+*.msg
+
+# Sensitive text files (but allow requirements.txt, etc.)
+*.txt
+!requirements.txt
+!**/requirements*.txt
+
+# Extracted data (contains entities, relationships)
+entities.json
+relationships.json
+*.graphml
+*.gexf
+*.db
+*.sqlite
+*.sqlite3
+
+# API Keys and Credentials
+.env
+.env.local
+.env.production
+config/secrets.json
+config/api_keys.json
+anthropic_api_key.txt
+*.key
+*.pem
+
+# ============================================
+# Python
+# ============================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# ============================================
+# IDEs & Editors
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ============================================
+# Node.js (for frontend)
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ============================================
+# Databases
+# ============================================
+*.db-journal
+neo4j/data/
+postgres-data/
+redis-dump.rdb
+
+# ============================================
+# Docker
+# ============================================
+*.log
+docker-compose.override.yml
+
+# ============================================
+# Temporary & Cache Files
+# ============================================
+tmp/
+temp/
+.cache/
+*.tmp
+*.temp
+.temp/
+
+# ============================================
+# Output & Export Files
+# ============================================
+exports/
+reports/*.pdf
+reports/*.png
+outputs/
+
+# ============================================
+# OS Files
+# ============================================
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# ============================================
+# Graph Database Backups
+# ============================================
+*.dump
+backups/
+
+# ============================================
+# Allow Example/Test Files (in git)
+# ============================================
+# Override above rules for example data
+!data/examples/*.pdf
+!data/examples/*.txt
+!tests/fixtures/*.json

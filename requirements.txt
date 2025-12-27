@@ -1,0 +1,167 @@
+# Intelligence Document Analyzer - Python Dependencies
+
+# ============================================
+# Core Python
+# ============================================
+python>=3.9
+
+# ============================================
+# AI / NLP - Claude API Integration
+# ============================================
+anthropic>=0.18.0        # Claude API SDK
+langchain>=0.1.0         # Optional: LLM orchestration
+langchain-anthropic>=0.1.0
+
+# ============================================
+# Document Processing - PDF, DOCX, Email
+# ============================================
+# PDF parsing
+PyMuPDF>=1.23.0          # Fast PDF text extraction (fitz)
+pdfplumber>=0.10.0       # Table extraction, layout analysis
+pdf2image>=1.16.0        # PDF to images for OCR
+
+# Microsoft Office documents
+python-docx>=1.0.0       # DOCX files
+openpyxl>=3.1.0          # Excel files (optional)
+
+# Email parsing
+email-validator>=2.1.0
+python-email>=0.1.0
+
+# OCR for scanned documents
+pytesseract>=0.3.10      # Tesseract OCR wrapper
+Pillow>=10.0.0           # Image processing
+
+# Text processing
+charset-normalizer>=3.3.0
+
+# ============================================
+# Graph Database & Network Analysis
+# ============================================
+# For MVP/prototyping
+networkx>=3.2.0          # Python graph library
+matplotlib>=3.8.0        # Graph plotting
+
+# For production (optional - comment out for MVP)
+# neo4j>=5.14.0          # Neo4j Python driver
+# py2neo>=2021.2.3       # Higher-level Neo4j interface
+
+# Graph algorithms
+python-louvain>=0.16     # Community detection
+scipy>=1.11.0            # Scientific computing
+
+# ============================================
+# Data Validation & Models
+# ============================================
+pydantic>=2.5.0          # Data validation
+pydantic-settings>=2.1.0 # Settings management
+
+# ============================================
+# Web API & Server
+# ============================================
+fastapi>=0.108.0         # Modern web framework
+uvicorn[standard]>=0.25.0  # ASGI server
+python-multipart>=0.0.6  # File upload support
+
+# ============================================
+# Frontend Visualization Dependencies
+# ============================================
+# (These will be npm packages, listed here for reference)
+# - cytoscape.js (graph visualization)
+# - vis-network (alternative graph viz)
+# - React + TypeScript
+# - Tailwind CSS
+
+# ============================================
+# Database & Storage
+# ============================================
+# Metadata storage
+sqlalchemy>=2.0.0        # ORM
+alembic>=1.13.0          # Database migrations
+
+# SQLite (included in Python)
+# Optional: PostgreSQL
+# psycopg2-binary>=2.9.0
+
+# Caching
+# redis>=5.0.0           # Redis client (optional)
+
+# ============================================
+# Utilities
+# ============================================
+python-dotenv>=1.0.0     # Environment variables
+click>=8.1.0             # CLI framework
+rich>=13.7.0             # Beautiful terminal output
+tqdm>=4.66.0             # Progress bars
+
+# ============================================
+# Testing & Development
+# ============================================
+pytest>=7.4.0            # Testing framework
+pytest-asyncio>=0.21.0   # Async test support
+pytest-cov>=4.1.0        # Coverage reporting
+black>=23.12.0           # Code formatting
+flake8>=6.1.0            # Linting
+mypy>=1.7.0              # Type checking
+ipython>=8.18.0          # Interactive shell
+
+# ============================================
+# Logging & Monitoring
+# ============================================
+loguru>=0.7.0            # Better logging
+structlog>=23.2.0        # Structured logging (optional)
+
+# ============================================
+# Date & Time
+# ============================================
+python-dateutil>=2.8.0   # Date parsing
+pytz>=2023.3             # Timezone support
+
+# ============================================
+# HTTP & Requests
+# ============================================
+httpx>=0.25.0            # Modern HTTP client
+requests>=2.31.0         # Classic HTTP library
+
+# ============================================
+# JSON & Data Formats
+# ============================================
+orjson>=3.9.0            # Fast JSON parsing
+pyyaml>=6.0.1            # YAML support
+
+# ============================================
+# Security
+# ============================================
+cryptography>=41.0.0     # Encryption utilities
+
+# ============================================
+# Optional: Advanced NLP (if not using Claude)
+# ============================================
+# spacy>=3.7.0           # Traditional NLP
+# transformers>=4.35.0   # Hugging Face models
+# torch>=2.1.0           # PyTorch (for transformers)
+
+# ============================================
+# Optional: Vector Database
+# ============================================
+# For semantic search capabilities
+# pinecone-client>=2.2.0
+# weaviate-client>=3.25.0
+# chromadb>=0.4.0
+
+# ============================================
+# Installation Notes
+# ============================================
+#
+# Basic installation:
+#   pip install -r requirements.txt
+#
+# For OCR support, also install Tesseract:
+#   Ubuntu/Debian: sudo apt install tesseract-ocr
+#   macOS: brew install tesseract
+#   Windows: Download from GitHub
+#
+# For production graph database:
+#   Uncomment neo4j lines above
+#   Install Neo4j: https://neo4j.com/download/
+#

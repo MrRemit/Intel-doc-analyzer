@@ -1,0 +1,41 @@
+{
+  "model": "opus",
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(pip install:*)",
+      "Bash(python3:*)",
+      "Bash(git add:*)",
+      "Bash(pytest:*)",
+      "Read(data/examples/**)",
+      "Read(src/**)",
+      "Read(tests/**)",
+      "Read(docs/**)",
+      "Read(*.md)",
+      "Read(*.json)",
+      "Read(*.py)",
+      "Edit(src/**)",
+      "Edit(tests/**)",
+      "Edit(docs/**)",
+      "Write(src/**)",
+      "Write(tests/**)",
+      "Write(docs/**)",
+      "WebFetch"
+    ],
+    "deny": [
+      "Read(data/raw/**)",
+      "Read(data/processed/**)",
+      "Read(.env*)",
+      "Read(**/*.pdf)",
+      "Read(**/*.docx)",
+      "Write(data/raw/**)",
+      "Write(data/processed/**)",
+      "Bash(rm:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)"
+    ]
+  },
+  "env": {
+    "PYTHONUNBUFFERED": "1"
+  }
+}
