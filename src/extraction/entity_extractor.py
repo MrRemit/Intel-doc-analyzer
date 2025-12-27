@@ -146,7 +146,7 @@ class EntityExtractor:
             try:
                 response = self.client.messages.create(
                     model=self.model,
-                    max_tokens=4096,
+                    max_tokens=8192,  # Increased for large documents with many entities
                     system=system_prompt,
                     messages=[
                         {"role": "user", "content": user_prompt}
