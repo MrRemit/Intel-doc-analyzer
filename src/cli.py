@@ -264,7 +264,7 @@ def query(graph_path, entity1, entity2):
                     evidence = rel_data.get('evidence', '')
                     console.print(f"     ↓ [magenta]{rel_type}[/magenta]")
                     if evidence:
-                        console.print(f"     [dim]"{evidence[:80]}..."[/dim]")
+                        console.print(f"     [dim]\"{evidence[:80]}...\"[/dim]")
 
         console.print()
     else:
